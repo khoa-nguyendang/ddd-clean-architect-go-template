@@ -1,0 +1,74 @@
+version: "3.9"
+
+services:
+  mongodb_installer:
+    image: mongo:latest
+    networks:
+      - microservice_network
+    volumes:
+      - ./docker/mongodb_installer:/scripts:ro
+    entrypoint: [ "/scripts/setup.sh" ]
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=app_User
+      - MONGO_INITDB_ROOT_PASSWORD=app_Password@1234
+      - MONGO_INITDB_DATABASE=faiss
+    depends_on:
+      - app-mongodb
+      - mongo-rep1
+
+  app-mongodb:
+    hostname: app-mongodb
+    container_name: app-mongodb
+    restart: always
+    image: mongo:latest
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--journal", "--dbpath", "/data/db"]
+    ports:
+      - 27017:27017
+    expose:
+      - 27017
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+      - ./docker/mongodb:/scripts:ro
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=app_User
+      - MONGO_INITDB_ROOT_PASSWORD=app_Password@1234
+      - MONGO_INITDB_DATABASE=faiss
+    healthcheck:
+      test: test $$(echo "rs.initiate().ok || rs.status().ok" | mongo -u $${MONGO_INITDB_ROOT_USERNAME} -p $${MONGO_INITDB_ROOT_PASSWORD} --authenticationDatabase faiss --quiet) -eq 1
+      interval: 15s
+      timeout: 10s
+      retries: 5
+    logging:
+      driver: none
+    networks:
+      - microservice_network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  mongo-rep1:
+    hostname: mongo-rep1
+    container_name: mongo-rep1
+    restart: always
+    image: mongo:latest
+    expose:
+      - 27017
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--journal", "--dbpath", "/data/db"]
+    volumes:
+      - mongodb_data_replicas_1:/data/db
+      - mongodb_config_replicas_1:/data/configdb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=app_User
+      - MONGO_INITDB_ROOT_PASSWORD=app_Password@1234
+      - MONGO_INITDB_DATABASE=faiss
+    healthcheck:
+      test: test $$(echo "rs.initiate().ok || rs.status().ok" | mongo -u $${MONGO_INITDB_ROOT_USERNAME} -p $${MONGO_INITDB_ROOT_PASSWORD} --authenticationDatabase faiss --quiet) -eq 1
+      interval: 15s
+      timeout: 10s
+      retries: 5
+    logging:
+      driver: none
+    networks:
+      - microservice_network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

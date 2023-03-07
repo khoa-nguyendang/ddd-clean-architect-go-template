@@ -1,0 +1,16 @@
+syntax = "proto3";
+package company_service;
+option go_package = "services/company/protos/company/v1;microservices_accessors";
+
+service Company {
+    rpc GetCompanies(GetCompaniesRequest) returns (GetCompaniesResponse);
+    rpc AddCompany(AddCompanyRequest) returns (AddCompanyResponse);
+    rpc UpdateCompany(UpdateCompanyRequest) returns (UpdateCompanyResponse);
+    rpc DeleteCompany(DeleteCompanyRequest) returns (DeleteCompanyResponse);
+
+    rpc GetGroups(GetGroupsRequest) returns (GetGroupsResponse);
+    // rpc GetGroupsByCompanyCodes(GetGroupsByCompanyCodeRequest) returns (GetGroupsByCompanyCodesResponse);
+    rpc AddGroup(AddGroupRequest) returns (AddGroupResponse);
+    rpc UpdateGroup(UpdateGroupRequest) returns (UpdateGroupResponse);
+    rpc DeleteGroup(DeleteGroupRequest) returns (DeleteGroupResponse);
+}

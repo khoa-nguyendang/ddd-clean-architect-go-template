@@ -1,0 +1,125 @@
+syntax = "proto3";
+package company_service;
+option go_package = "services/company/protos/company/v1;microservices_accessors";
+
+message GetCompaniesRequest {
+    repeated string company_codes = 1;
+}
+
+message CompanyInfo {
+    int64 company_id = 1;
+    string company_name = 2;
+    string company_code = 3;
+    string company_info = 4;
+
+    repeated GroupInfo groups = 5;
+}
+
+message GetCompaniesResponse {
+    int32 code = 1;
+    string message = 2;
+    string error = 3;
+
+    repeated CompanyInfo companies = 4;
+}
+
+message AddCompanyRequest {
+    string company_code = 1;
+    string company_name = 2;
+    string company_info = 4;
+}
+
+message AddCompanyResponse {
+    int32 code = 1;
+    string message = 2;
+    string error = 3;
+
+    int64 company_id = 4;
+    string comapny_code = 5;
+}
+
+message UpdateCompanyRequest {
+    int64 company_id = 1;
+    string company_name = 2;
+    string company_info = 4;
+}
+
+message UpdateCompanyResponse {
+    int32 code = 1;
+    string message = 2;
+    string error = 3;
+
+    bool status = 4;
+}
+
+message DeleteCompanyRequest {
+    int64 company_id = 1;
+}
+
+message DeleteCompanyResponse {
+    int32 code = 1;
+    string message = 2;
+    string error = 3;
+
+    bool status = 4;
+}
+
+message AddGroupRequest {
+    int64 company_id = 1;
+    string group_name = 2;
+    string group_info = 4;
+}
+
+
+message AddGroupResponse {
+    int32 code = 1;
+    string message = 2;
+    string error = 3;
+
+    bool status = 4;
+}
+
+message UpdateGroupRequest {
+    int64 group_id = 1;
+    string group_name = 2;
+    string group_info = 4;
+}
+
+message UpdateGroupResponse {
+    int32 code = 1;
+    string message = 2;
+    string error = 3;
+
+    bool status = 4;
+}
+
+message DeleteGroupRequest {
+    int64 group_id = 1;
+}
+
+message DeleteGroupResponse {
+    int32 code = 1;
+    string message = 2;
+    string error = 3;
+
+    bool status = 4;
+}
+
+message GetGroupsRequest {
+    int64 company_id = 1;
+    string company_code = 2;
+}
+message GroupInfo {
+    int64 id = 1;
+    string group_name = 2;
+    int64 company_id = 3;
+    string company_code = 4;
+    string group_info = 5;
+}
+message GetGroupsResponse {
+    int32 code = 1;
+    string message = 2;
+    string error = 3;
+
+    repeated GroupInfo data = 4;
+}

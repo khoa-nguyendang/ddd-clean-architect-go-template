@@ -1,0 +1,102 @@
+version: "3.9"
+
+networks:
+  microservice_network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+    driver: local
+    external: false
+    driver_opts:
+      type: 'nfs'
+      o: 'bind'
+      device: '/srv/mongodb_data'
+
+  mongodb_config:
+    driver: local
+    external: false
+    driver_opts:
+      type: 'nfs'
+      o: 'bind'
+      device: '/srv/mongodb_config'
+  
+  mysqldb_data:
+    driver: local
+    external: false
+    driver_opts:
+      type: 'nfs'
+      o: 'bind'
+      device: '/srv/mysqldb'
+
+  mysqldb_data_rep1:
+    driver: local
+    external: false
+    driver_opts:
+      type: 'nfs'
+      o: 'bind'
+      device: '/srv/mysqldb_rep1'
+
+  minio_data:
+    driver: local
+    external: false
+    driver_opts:
+      type: 'nfs'
+      o: 'bind'
+      device: '/srv/minio'
+
+  zookeeper_data:
+    driver: local
+    external: false
+    driver_opts:
+      type: 'nfs'
+      o: 'bind'
+      device: '/srv/zookeeper'
+
+  kafka_data:
+    driver: local
+    external: false
+    driver_opts:
+      type: 'nfs'
+      o: 'bind'
+      device: '/srv/kafka'
+
+  mosquitto_data:
+    driver: local
+    external: false
+    driver_opts:
+      type: 'nfs'
+      o: 'bind'
+      device: '/srv/mosquitto'
+
+  elasticsearch_data:
+    driver: local
+    external: false
+    driver_opts:
+      type: 'nfs'
+      o: 'bind'
+      device: '/srv/elasticsearch'
+
+  logstash_pipeline_data:
+    driver: local
+    external: false
+    driver_opts:
+      type: 'nfs'
+      o: 'bind'
+      device: '/srv/logstash/pipeline'
+
+  logstash_config_data:
+    driver: local
+    external: false
+    driver_opts:
+      type: 'nfs'
+      o: 'bind'
+      device: '/srv/logstash/config'
+
+  logstash_queries_data:
+    driver: local
+    external: false
+    driver_opts:
+      type: 'nfs'
+      o: 'bind'
+      device: '/srv/logstash/config/queries'
