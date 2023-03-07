@@ -1,125 +1,105 @@
 syntax = "proto3";
-package company_service;
-option go_package = "services/company/protos/company/v1;microservices_accessors";
+package company;
+option go_package = "github.com/khoa-nguyendang/ddd-clean-architect-go-template/src/core/models/transfers/company;company";
 
-message GetCompaniesRequest {
-    repeated string company_codes = 1;
+
+message Company {
+    string id = 1;
+    string parent_company_id = 2;
+    string english_name = 3;
+    string full_name = 4;
+    string short_name = 5;
+    string logo_url = 6;
+    bool is_active = 7;
+    string company_code = 8;
+    string address = 9;
+    string email = 10;
+    string phone = 11;
+    string website = 12;
 }
 
-message CompanyInfo {
-    int64 company_id = 1;
-    string company_name = 2;
-    string company_code = 3;
-    string company_info = 4;
-
-    repeated GroupInfo groups = 5;
+message GetRequest {
+    string id = 1;
 }
 
-message GetCompaniesResponse {
+message GetResponse {
     int32 code = 1;
     string message = 2;
     string error = 3;
 
-    repeated CompanyInfo companies = 4;
+    Company data = 4;
 }
 
-message AddCompanyRequest {
-    string company_code = 1;
-    string company_name = 2;
-    string company_info = 4;
+message SearchRequest {
+    string search_term = 1;
+    int64 current_page = 2;
+    int64 page_size = 3; 
 }
 
-message AddCompanyResponse {
+message SearchResponse {
     int32 code = 1;
     string message = 2;
     string error = 3;
 
-    int64 company_id = 4;
-    string comapny_code = 5;
+    repeated Company data = 4;
 }
 
-message UpdateCompanyRequest {
-    int64 company_id = 1;
-    string company_name = 2;
-    string company_info = 4;
+message CreateRequest {
+    string parent_company_id = 2;
+    string english_name = 3;
+    string full_name = 4;
+    string short_name = 5;
+    string logo_url = 6;
+    bool is_active = 7;
+    string company_code = 8;
+    string address = 9;
+    string email = 10;
+    string phone = 11;
+    string website = 12;
 }
 
-message UpdateCompanyResponse {
+message CreateResponse {
     int32 code = 1;
     string message = 2;
     string error = 3;
 
-    bool status = 4;
+    Company data = 4;
 }
 
-message DeleteCompanyRequest {
-    int64 company_id = 1;
+message UpdateRequest {
+    string id = 1;
+    string parent_company_id = 2;
+    string english_name = 3;
+    string full_name = 4;
+    string short_name = 5;
+    string logo_url = 6;
+    bool is_active = 7;
+    string company_code = 8;
+    string address = 9;
+    string email = 10;
+    string phone = 11;
+    string website = 12;
 }
 
-message DeleteCompanyResponse {
+message UpdateResponse {
     int32 code = 1;
     string message = 2;
     string error = 3;
 
-    bool status = 4;
-}
-
-message AddGroupRequest {
-    int64 company_id = 1;
-    string group_name = 2;
-    string group_info = 4;
+    Company data = 4;
 }
 
 
-message AddGroupResponse {
+message DeleteRequest {
+    string id = 1;
+    bool soft_delete = 2;
+}
+
+message DeleteResponse {
     int32 code = 1;
     string message = 2;
     string error = 3;
 
-    bool status = 4;
+    bool deleted = 4;
 }
 
-message UpdateGroupRequest {
-    int64 group_id = 1;
-    string group_name = 2;
-    string group_info = 4;
-}
-
-message UpdateGroupResponse {
-    int32 code = 1;
-    string message = 2;
-    string error = 3;
-
-    bool status = 4;
-}
-
-message DeleteGroupRequest {
-    int64 group_id = 1;
-}
-
-message DeleteGroupResponse {
-    int32 code = 1;
-    string message = 2;
-    string error = 3;
-
-    bool status = 4;
-}
-
-message GetGroupsRequest {
-    int64 company_id = 1;
-    string company_code = 2;
-}
-message GroupInfo {
-    int64 id = 1;
-    string group_name = 2;
-    int64 company_id = 3;
-    string company_code = 4;
-    string group_info = 5;
-}
-message GetGroupsResponse {
-    int32 code = 1;
-    string message = 2;
-    string error = 3;
-
-    repeated GroupInfo data = 4;
-}

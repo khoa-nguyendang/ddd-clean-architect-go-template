@@ -1,4 +1,4 @@
-package biz_services
+package data_accessors
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 	ett "github.com/khoa-nguyendang/ddd-clean-architect-go-template/core/entities"
 )
 
-type UserBiz interface {
+type UserDataAccessor interface {
 	Search(ctx context.Context, searchTerm string, pageNumber, pageAmount int) ([]ett.User, error)
 	Get(ctx context.Context, userId string) (ett.User, error)
 	Add(ctx context.Context, model ett.User) (ett.User, error)

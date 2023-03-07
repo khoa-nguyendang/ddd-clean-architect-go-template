@@ -1,6 +1,15 @@
 syntax = "proto3";
 package user;
-option go_package = "github.com/khoa-nguyendang/ddd-clean-architect-go-template/src/core/models/transfers/user;user";
+option go_package = "github.com/khoa-nguyendang/ddd-clean-architect-go-template/src/infrastructure/microservices_accessors/user;user";
+
+service UserService {
+    rpc Search(SearchRequest) returns(SearchResponse);
+    rpc Get(GetRequest) returns(GetResponse);
+    rpc Create(CreateRequest) returns(CreateResponse);
+    rpc Update(UpdateRequest) returns(UpdateResponse);
+    rpc Delete(DeleteRequest) returns(DeleteResponse);
+}
+
 
 message User {
     string id = 1;
