@@ -1,9 +1,9 @@
 package logger
 
 import (
-	"admin-gotemplate/config"
 	"os"
 
+	config "github.com/khoa-nguyendang/ddd-clean-architect-go-template/core/specifications"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
